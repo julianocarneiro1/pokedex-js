@@ -1,18 +1,7 @@
-/*
-    Quando clicar no pokémon da pokemon-list esconder outros cards e mostrar somente o que foi selecionado.
-    - pokemon-list
-    - pokemon-card
-   
-    - Criar duas variáveis js para trabalhar com os elementos da tela.
-    - Trabalhar com evento de clique feito pelo usuário na pokemon-list
-    - remover a classe opened do cartão que está aberto
-    - adicionar a classe opened no pokémon que foi clicado, através de seu id
-    - remover classe active, que marca o pokémon selecionado
-    - adicionar classe active no item da lista que foi selecionado
-*/
-
 const pokemonSelectionList = document.querySelectorAll('.pokemon')
 const pokemonCards = document.querySelectorAll('.pokemon-card')
+
+playSounds()
 
 pokemonSelectionList.forEach(pokemon => {
     pokemon.addEventListener('click', () => {
@@ -25,8 +14,26 @@ pokemonSelectionList.forEach(pokemon => {
         const idSelectedPokemon = pokemon.attributes.id.value
         const cardToBeOpened = document.getElementById(idSelectedPokemon + '-card')
         cardToBeOpened.classList.add('opened')
-        
+
         const itemAddClass = document.getElementById(idSelectedPokemon)
         itemAddClass.classList.add('active')
     })
 })
+
+function playSounds() {
+    const soundMouseOver = document.getElementById("soundMouseOver");
+    const soundMouseClick = document.getElementById("soundMouseClick");   
+
+    pokemonSelectionList.forEach((pokemon) => {
+        pokemon.addEventListener('mouseenter', () => {
+            soundMouseOver.currentTime = 0
+            soundMouseOver.volume = 0.03
+            soundMouseOver.play()            
+        });
+        pokemon.addEventListener('click', () => {
+            soundMouseClick.currentTime = 0
+            soundMouseClick.volume = 0.05
+            soundMouseClick.play()
+        });
+    });
+}
